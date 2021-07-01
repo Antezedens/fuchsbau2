@@ -15,17 +15,7 @@ import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
-import react.dom.a
-import react.dom.button
-import react.dom.div
-import react.dom.h1
-import react.dom.img
-import react.dom.input
-import react.dom.label
-import react.dom.table
-import react.dom.tbody
-import react.dom.td
-import react.dom.tr
+import react.dom.*
 import react.setState
 import kotlin.js.Date
 import kotlin.js.json
@@ -67,10 +57,9 @@ class Main : RComponent<RProps, State>() {
 		const val ABSOLUTE_HUMID = 5
 		const val RELAIS_ID_OFFSET = 50
 		const val RELAIS_UNIT_ID = 2
-		//""https://wariest-turtle-6853.dataplicity.io"
 		const val devicehost = ""
 		const val websitehost = ""
-		const val VERSION = "6"
+		const val VERSION = "7"
 	}
 
 	var chart: dynamic
@@ -121,8 +110,6 @@ class Main : RComponent<RProps, State>() {
 		state.relais = mutableMapOf()
 		state.update = Date(2000, 0)
 		state.lastdata = Date(2000, 0)
-
-		setZoom(Date(), Zoom(2, w))
 
 		window.onclick = {
 			if (!it.target.asDynamic().matches(".button1") as Boolean) {
@@ -241,7 +228,7 @@ class Main : RComponent<RProps, State>() {
         });
 	"""
 		)
-
+		setZoom(Date(), Zoom(2, w))
 	}
 
 	private fun updateSensors() {
@@ -412,7 +399,6 @@ class Main : RComponent<RProps, State>() {
 	}
 
 	override fun RBuilder.render() {
-
 		table {
 			tbody {
 				tr(classes = "centertd") {
@@ -710,7 +696,7 @@ class Main : RComponent<RProps, State>() {
 		chart.xAxis[0].setExtremes(now.getTime() - i.offset, null)
 	}
 
-	private fun hasAuto(relais: DbRelais) = relais.id == 55 || relais.id == 53
+	private fun hasAuto(relais: DbRelais) = relais.id == 55 || relais.id == 53 || relais.id == 58
 	private fun hasFill(relais: DbRelais) = relais.id == 53
 	private fun isVisible(id: Int) = (id == 0) || (id == 4)
 
